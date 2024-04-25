@@ -1,0 +1,58 @@
+from  datetime import datetime, date
+import time
+
+def add1(a):
+    return a+a
+
+def add2(a):
+    return a*a
+
+def add3(a):
+    return a**a
+    
+def check(funcs,arg):
+    d={}
+    for func in funcs:
+        start_time = time.monotonic()
+        func(arg)
+        end_time = time.monotonic()
+        d.setdefault(func,end_time -start_time)
+    return min(d,key=d.get)
+ 
+    
+def check2(f_list, value):
+    min = 10**10
+    name = ''
+    for f in f_list:
+        start = time.monotonic()
+        f(value)
+        stop = time.monotonic()
+        if stop - start < min:
+            min = stop - start
+            name = f
+    return name
+
+date1 = date(2018, 7, 13)
+date2 = date(2028, 7, 13)
+
+start = time.monotonic()
+print('Время старта: ' + str(start))
+
+for _ in range(50000):
+    check([add1,add2,add3],100)
+
+finish = time.monotonic()
+print('Время окончания: ' + str(finish))
+print('Время выполнения: ' + str(finish - start))
+
+print()
+
+start = time.monotonic()
+print('Время старта: ' + str(start))
+
+for _ in range(50000):
+    check2([add1,add2,add3],100)
+
+finish = time.monotonic()
+print('Время окончания: ' + str(finish))
+print('Время выполнения: ' + str(finish - start))
