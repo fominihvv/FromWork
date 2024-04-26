@@ -214,15 +214,28 @@ def check():
     #    else:
     #        return all(bool(n % i) for i in range(3, round(n ** 0.5) + 1, 2))
 
-    return str(test_slovar) == str(test_slovar2)
-
+    d = {}
+    """for value, key in test_slovar.items():
+        if value in d:
+            d[value].append(key)
+        else:
+            d[value] = [key]"""
+    return len(d)
 
 
 
 # чужая функция
 def check2():
 
-    return test_slovar.items() == test_slovar2.items()
+        #if key in self.data:
+        #    self.data[key].append(value)
+        #else:
+        #    self.data[key] = [value]
+    d = {}
+    """for value, key in test_slovar.items():
+        d.setdefault(value, []).append(key)"""
+    return len(d)
+
 
 
 # for i in range(100_000):
@@ -231,7 +244,7 @@ def check2():
 #    human['chief']['age'] = random.randint(0, 100)
 #    d.append(human)
 
-print(len(test_slovar))
+
 print(check())
 print(check2())
 
@@ -282,3 +295,8 @@ print('---- Моя функция -- ', end='')
 print(f'Время выполнения: {str(round(time_1_perf_counter, 10))}')
 print('-- Чужая функция -- ', end='')
 print(f'Время выполнения: {str(round(time_2_perf_counter, 10))}')
+
+
+s = 'Aabc'
+st = ''.join(map(str.lower, s))
+print(st)
