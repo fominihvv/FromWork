@@ -1,15 +1,15 @@
 '''Общая схема работы дескриптора для класса Point3D'''
 
 class Integer:  # Дескриптор
-    def __set_name__(self, owner, name):
+    def __set_name__(self, cls, name):
         # Метод автоматически вызывается когда создается экземпляр класса
-        # self - ссылка на экземпляр класса, owner - ссылка на класс Point3D'''
+        # self - ссылка на экземпляр класса, cls - ссылка на класс Point3D'''
         self.name = '_' + name
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, cls):
         # self - ссылка на свой экземпляр класса
         # instance - ссылка на экземпляр класса из которого был вызван
-        # owner - ссылка на класс Point3D
+        # cls - ссылка на класс Point3D
         return instance.__dict__[self.name]
 
     def __set__(self, instance, value):
