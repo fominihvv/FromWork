@@ -1,24 +1,20 @@
-import random
+class MoneyBox:
 
+    def __init__(self, capacity: int) -> None:
+        self.check_coins_type(capacity)
+        self.max_capacity = capacity
+        self.coins = 0
 
-def check1(n, k, m):
-    total = k_count = m_count = 0
-    while n >= k:
-        k_count = n // k
-        m_count = k // m * k_count
-        total += m_count
-        n -= m_count * m
-    return total
+    def can_add(self, v: int) -> bool:
+        self.check_coins_type(v)
+        return self.coins + v <= self.max_capacity
 
+    def add(self, v: int) -> None:
+        self.check_coins_type(v)
+        if self.can_add(v):
+            self.coins += v
 
-def check2(n, k, m):
-    i = k - k % m
-    n = n - k
-    return (n // i + 1) * (k // m)
-
-
-for _ in range(2000):
-    n = random.randint(50, 100)
-    k = random.randint(10, n)
-    m = random.randint(1, k)
-    assert check1(n, k, m) == check2(n, k, m)
+    @staticmethod
+    def check_coins_type(capacity: int) -> None:
+        if type(capacity) is not int or capacity < 0:
+            raise TypeError('Количество монет должно быть целым положительным числом')

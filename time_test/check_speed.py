@@ -1,6 +1,7 @@
 import random
 import time
 from random import randint, choice
+from string import ascii_lowercase, digits, ascii_letters
 
 # -----------------------------------------
 
@@ -23,6 +24,9 @@ print("Строка чисел - Готово")
 
 stroka_bukv = ''.join([random.choice('QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm') for _ in range(1_000)])
 print("Строка букв - Готово")
+
+stroka_bukv_lower = ''.join([random.choice(ascii_lowercase) for _ in range(1_000_000)])
+print("Строка букв в мал. регистре - Готово")
 
 stroka_bukv_i_chisel = [random.choice(['Q', 1]) for _ in range(1000)]
 print("Строка букв и чисел - Готово")
@@ -52,7 +56,7 @@ print("Список списков - Готово")
 list_tuple = [tuple(random.randint(-100, 100) for _ in range(random.randint(1, 10))) for _ in range(10_000)]
 print("Список кортежей - Готово")
 
-set_1 = set(random.randint(0, 1_000_000) for _ in range(1_000))
+set_1 = set(random.randint(0, 1_000) for _ in range(1_000))
 print("Множество - Готово")
 
 spisok_failov = [''.join(random.choices('QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890',
@@ -67,31 +71,36 @@ test_slovar = {k: i for k, i in enumerate(list_num, 1)}
 test_slovar2 = {k: i for k, i in enumerate(list_num, 1)}
 print("Словари - Готово")
 
-
 # print(inp)
 # print(inp_2)
 
-def check():
-    lst = stroka_chisel.split()
-    lst[:-1:2], lst[1::2] = lst[1::2], lst[:-1:2]
-    return lst
 
+cache = {}
+pattern = ascii_letters + digits + '-?!$#@_'
+password = '12345asdf@#'
+
+
+def check():
+    size: int = 1_000
+    up_fill: int = 0
+    down_fill: int = 0
+    fill = lambda i, j: i + 1 if i == j else up_fill if j > i else down_fill
+    return [[fill(i, j) for j in range(size)] for i in range(size)]
 
 def check2():
-    a = stroka_chisel.split()
-    for i in range(0, len(a) - 1, 2):
-        a[i], a[i + 1] = a[i + 1], a[i]
-    return a
-
+    size: int = 5_000
+    up_fill: int = 0
+    down_fill: int = 0
+    return [[down_fill] * rows + [rows + 1] + [up_fill] * (size - rows - 1) for rows in range(size)]
 
 # Для проверки что, это работает как надо
-print(check())
-print(check2())
+#print(check())
+#print(check2())
 
 # Сколько раз тестить
 
 
-test_range = 100
+test_range = 1
 print('--------------Starting...------------------')
 
 time_1_monotonic = 0
